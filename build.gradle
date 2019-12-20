@@ -1,8 +1,9 @@
 plugins {
     id 'java'
+    id 'maven'
 }
 
-group 'de.arthurpicht'
+group 'com.github.arthurpicht'
 version '0.1-SNAPSHOT'
 
 archivesBaseName = "ap-utils-core"
@@ -23,3 +24,16 @@ test {
     useJUnitPlatform()
 }
 
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }
+}
