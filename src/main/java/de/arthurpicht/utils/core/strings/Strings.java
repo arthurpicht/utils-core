@@ -2,6 +2,8 @@ package de.arthurpicht.utils.core.strings;
 
 import de.arthurpicht.utils.core.assertion.AssertMethodPrecondition;
 
+import java.util.List;
+
 public class Strings {
 
     public static boolean isNull(String string) {
@@ -128,10 +130,42 @@ public class Strings {
     public static String cutEnd(String string, int n) {
 
         AssertMethodPrecondition.parameterNotNull("string", string);
+
         if (n < 0) throw new IllegalArgumentException("Parameter n ist negativ.");
         if (string.length() < n) throw new IllegalArgumentException("Überschreitung der Länge des Strings.");
 
         return string.substring(0, string.length() - n);
+    }
+
+    /**
+     * Erzeugt aus einer Liste von Strings einen zusammengsetzten String unter
+     * Verwendung des spez. Delimiters.
+     *
+     * @param stringList Liste von Strings
+     * @param delimiter Delimiter
+     * @return Zusammengesetzter String
+     */
+    public static String listing(List<String> stringList, String delimiter) {
+
+        AssertMethodPrecondition.parameterNotNull("stringList", stringList);
+        AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String string : stringList) {
+            if (stringBuilder.length() > 0) stringBuilder.append(delimiter);
+            stringBuilder.append(string);
+        }
+        return stringBuilder.toString();
+    }
+
+    public static String listing(List<String> stringList, String delimiter, String pre, String post) {
+
+        AssertMethodPrecondition.parameterNotNull("stringList", stringList);
+        AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
+        AssertMethodPrecondition.parameterNotNull("pre", pre);
+        AssertMethodPrecondition.parameterNotNull("post", post);
+
+        return pre + listing(stringList, delimiter) + post;
     }
 
 
