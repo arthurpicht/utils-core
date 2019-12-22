@@ -138,14 +138,14 @@ public class Strings {
     }
 
     /**
-     * Erzeugt aus einer Liste von Strings einen zusammengsetzten String unter
-     * Verwendung des spez. Delimiters.
+     * Erzeugt aus einem Iterable von Strings einen zusammengsetzten String unter
+     * Verwendung des spezifizierten Delimiters.
      *
-     * @param stringList Liste von Strings
-     * @param delimiter Delimiter
-     * @return Zusammengesetzter String
+     * @param stringList Iterable von Strings
+     * @param delimiter Trennzeichen zwischen Elementen
+     * @return zusammengesetzter String
      */
-    public static String listing(List<String> stringList, String delimiter) {
+    public static String listing(Iterable<String> stringList, String delimiter) {
 
         AssertMethodPrecondition.parameterNotNull("stringList", stringList);
         AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
@@ -158,7 +158,17 @@ public class Strings {
         return stringBuilder.toString();
     }
 
-    public static String listing(List<String> stringList, String delimiter, String pre, String post) {
+    /**
+     * Erzeugt aus einem Iteralbe von String einen zusammengesetzten String unter
+     * Verwendung des spezifizierten Delimiters sowie eine pre- und post-String.
+     *
+     * @param stringList Iterable von Strings
+     * @param delimiter Trennzeichen zwischen Elementen
+     * @param pre Zeichen am Anfang des zusammengesetzten Strings
+     * @param post Zeichen am Ende des zusammengesetzten Strings
+     * @return zusammengesetzter String
+     */
+    public static String listing(Iterable<String> stringList, String delimiter, String pre, String post) {
 
         AssertMethodPrecondition.parameterNotNull("stringList", stringList);
         AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
