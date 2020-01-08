@@ -2,16 +2,33 @@ package de.arthurpicht.utils.core.strings;
 
 import de.arthurpicht.utils.core.assertion.AssertMethodPrecondition;
 
-import java.util.List;
-
+@SuppressWarnings("WeakerAccess")
 public class Strings {
 
+    /**
+     * Checks if specified string is null.
+     *
+     * @param string
+     * @return
+     */
     public static boolean isNull(String string) {
         return (string == null);
     }
 
     public static boolean isNullOrEmpty(String string) {
         return (string == null || string.equals(""));
+    }
+
+    public static boolean isUnspecified(String string) {
+        return isNullOrEmpty(string);
+    }
+
+    public static boolean isNotNullAndNotEmpty(String string) {
+        return (string != null && !string.equals(""));
+    }
+
+    public static boolean isSpecified(String string) {
+        return isNotNullAndNotEmpty(string);
     }
 
     /**
@@ -176,6 +193,48 @@ public class Strings {
         AssertMethodPrecondition.parameterNotNull("post", post);
 
         return pre + listing(stringList, delimiter) + post;
+    }
+
+    /**
+     * Füllt den spez. und initialisierten StringBuilder bis zur spez. Länge auf.
+     * Wenn die spez. Länge bereits initial gegeben oder überschritten ist, bleibt
+     * der spez. StringBuilder unverändert.
+     *
+     * @param stringBuilder
+     * @param fillChar
+     * @param minLength
+     */
+    public static void fillUpAfter(StringBuilder stringBuilder, char fillChar, int minLength) {
+
+        AssertMethodPrecondition.parameterNotNull("stringBuilder", stringBuilder);
+
+        if (stringBuilder.length() >= minLength) return;
+
+        int nrOfCharsToFill = minLength - stringBuilder.length();
+
+        for (int i = 0; i < nrOfCharsToFill; i++) {
+            stringBuilder.append(fillChar);
+        }
+
+    }
+
+    /**
+     * Füllt den spez. String durch wiederholte Hinzufügung bis zur spez. Länge auf.
+     * Wenn die spez. Länge bereits initial gegeben oder überschritten ist, wird der spez. String
+     * unverändert zurück gegeben.
+     *
+     * @param string
+     * @param fillChar
+     * @param minLength
+     * @return@NotNull
+     */
+    public static String fillUpAfter(String string, char fillChar, int minLength) {
+
+        AssertMethodPrecondition.parameterNotNull("string", string);
+
+        StringBuilder stringBuilder = new StringBuilder(string);
+        fillUpAfter(stringBuilder, fillChar, minLength);
+        return stringBuilder.toString();
     }
 
 
