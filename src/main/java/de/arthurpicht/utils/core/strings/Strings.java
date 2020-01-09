@@ -15,18 +15,42 @@ public class Strings {
         return (string == null);
     }
 
+    /**
+     * Checks if specified string is null or empty.
+     *
+     * @param string
+     * @return
+     */
     public static boolean isNullOrEmpty(String string) {
         return (string == null || string.equals(""));
     }
 
+    /**
+     * Checks if specified string is unspecified. Alias for {@link #isNullOrEmpty}
+     *
+     * @param string
+     * @return
+     */
     public static boolean isUnspecified(String string) {
         return isNullOrEmpty(string);
     }
 
+    /**
+     * Checks if specified string is not null and not empty.
+     *
+     * @param string
+     * @return
+     */
     public static boolean isNotNullAndNotEmpty(String string) {
         return (string != null && !string.equals(""));
     }
 
+    /**
+     * Checks if specified string is specified. Alias for {@link #isNotNullAndNotEmpty(String)}
+     *
+     * @param string
+     * @return
+     */
     public static boolean isSpecified(String string) {
         return isNotNullAndNotEmpty(string);
     }
@@ -46,10 +70,10 @@ public class Strings {
      */
     public static boolean isOneOf(String indexString, String... strings) {
 
-        if (Strings.isNull(indexString)) throw new IllegalArgumentException("Parameter *indexString* ist null.");
+        if (Strings.isNull(indexString)) throw new IllegalArgumentException("Parameter 'indexString' is null.");
 
         for (String string : strings) {
-            if (Strings.isNull(string)) throw new IllegalArgumentException("Parameter-Element von *strings* ist null.");
+            if (Strings.isNull(string)) throw new IllegalArgumentException("Element of parameter 'strings' is null.");
             if (indexString.equals(string)) return true;
         }
 
@@ -69,7 +93,7 @@ public class Strings {
     public static String[] splitAtDelimiter(String starter, String delimiter) {
 
         if (!starter.contains(delimiter)) {
-            throw new IllegalArgumentException("Delimiter im zu verarbeitenden String nicht enthalten: '" + delimiter + "'.");
+            throw new IllegalArgumentException("Delimiter not contained in specified string.");
         }
 
         int index = starter.indexOf(delimiter);
