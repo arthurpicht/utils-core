@@ -220,6 +220,39 @@ public class Strings {
     }
 
     /**
+     * Erzeugt aus einem Iterable von Strings einen zusammengesetzten String. Jedes Element wird von den spezifizierten Strings
+     * preElement und postElement eingerahmt. Zur Trennung der Elemente in der Liste kommt der spez. Delimiter zur Anwendung.
+     * Der Gesamtstring wird eingerahmt von den spez. pre und post String.
+     *
+     * @param stringList
+     * @param delimiter
+     * @param pre
+     * @param post
+     * @param preElement
+     * @param postElement
+     * @return
+     */
+    public static String listing(Iterable<String> stringList, String delimiter, String pre, String post, String preElement, String postElement) {
+
+        AssertMethodPrecondition.parameterNotNull("stringList", stringList);
+        AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
+        AssertMethodPrecondition.parameterNotNull("pre", pre);
+        AssertMethodPrecondition.parameterNotNull("post", post);
+        AssertMethodPrecondition.parameterNotNull("preElement", preElement);
+        AssertMethodPrecondition.parameterNotNull("postElement", postElement);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String string : stringList) {
+            if (stringBuilder.length() > 0) stringBuilder.append(delimiter);
+            stringBuilder.append(preElement).append(string).append(postElement);
+        }
+        stringBuilder.insert(0, pre);
+        stringBuilder.append(post);
+
+        return stringBuilder.toString();
+    }
+
+    /**
      * Füllt den spez. und initialisierten StringBuilder bis zur spez. Länge auf.
      * Wenn die spez. Länge bereits initial gegeben oder überschritten ist, bleibt
      * der spez. StringBuilder unverändert.
