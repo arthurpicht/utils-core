@@ -2,6 +2,8 @@ package de.arthurpicht.utils.core.strings;
 
 import de.arthurpicht.utils.core.assertion.AssertMethodPrecondition;
 
+import java.util.List;
+
 @SuppressWarnings("WeakerAccess")
 public class Strings {
 
@@ -79,6 +81,29 @@ public class Strings {
 
         return false;
     }
+
+    /**
+     * Prüft, ob der spezifizierte *indexString* mit mindestens einem Element der übergebenen Liste von *strings*
+     * übereinstimmt.
+     *
+     * Voraussetzungen:
+     * - der *indexString* ist nicht null.
+     * - *strings* ist nicht null.
+     *
+     * @throws IllegalArgumentException bei Verletzung der Voraussetzungen.
+     *
+     * @param indexString
+     * @param strings
+     * @return
+     */
+    public static boolean isOneOf(String indexString, List<String> strings) {
+
+        AssertMethodPrecondition.parameterNotNull("indexString", indexString);
+        AssertMethodPrecondition.parameterNotNull("strings", strings);
+
+        return Strings.isOneOf(indexString, strings.toArray(new String[]{}));
+    }
+
 
     /**
      * Splits specified string in two substrings: one before and one after the specified
