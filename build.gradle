@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.github.arthurpicht'
-version '1.2'
+version '1.2.1'
 
 archivesBaseName = "ap-utils-core"
 
