@@ -49,6 +49,14 @@ public class Sets {
         return intersection;
     }
 
+    /**
+     * Returns the difference of specified minuend and subtrahend as a new instance of Set.
+     *
+     * @param minuend Set to be subtracted from
+     * @param subtrahend Set to be subtracted
+     * @param <E> type of containing elements
+     * @return resulting difference
+     */
     public static <E> Set<E> subtract(Set<? extends E> minuend, Set<? extends E> subtrahend) {
         final Set<E> difference = new HashSet<>(minuend);
         difference.removeIf(subtrahend::contains);
