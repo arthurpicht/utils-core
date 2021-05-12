@@ -107,8 +107,8 @@ public class Strings {
 
     /**
      * Splits specified string in two substrings: one before and one after the specified
-     * delimiter. If the delimiter is contained multiple times in the string, only the
-     * first occurrence is recognized.
+     * delimiter. If starter string contains delimiter more then once, then the
+     * first occurrence is recognized only.
      *
      * @param starter
      * @param delimiter
@@ -204,20 +204,22 @@ public class Strings {
     }
 
     /**
-     * Erzeugt aus einem Iterable von Strings einen zusammengsetzten String unter
-     * Verwendung des spezifizierten Delimiters.
+     * Erzeugt aus einem Iterable von Objekten einen zusammengsetzten String unter
+     * Verwendung der jeweiligen Stringrepräsentationen und des spezifizierten Delimiters.
+     * Null-Elemente werden als "null" repräsentiert.
      *
-     * @param stringList Iterable von Strings
+     * @param objects Iterable von Objects
      * @param delimiter Trennzeichen zwischen Elementen
      * @return zusammengesetzter String
      */
-    public static String listing(Iterable<String> stringList, String delimiter) {
+    public static String listing(Iterable<?> objects, String delimiter) {
 
-        AssertMethodPrecondition.parameterNotNull("stringList", stringList);
+        AssertMethodPrecondition.parameterNotNull("objects", objects);
         AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
 
         StringBuilder stringBuilder = new StringBuilder();
-        for (String string : stringList) {
+        for (Object object : objects) {
+            String string = object != null ? object.toString() : "null";
             if (stringBuilder.length() > 0) stringBuilder.append(delimiter);
             stringBuilder.append(string);
         }
@@ -225,31 +227,32 @@ public class Strings {
     }
 
     /**
-     * Erzeugt aus einem Iteralbe von String einen zusammengesetzten String unter
+     * Erzeugt aus einem Iterable von Objekten einen zusammengesetzten String unter
      * Verwendung des spezifizierten Delimiters sowie eine pre- und post-String.
      *
-     * @param stringList Iterable von Strings
+     * @param objects Iterable von Objekten
      * @param delimiter Trennzeichen zwischen Elementen
      * @param pre Zeichen am Anfang des zusammengesetzten Strings
      * @param post Zeichen am Ende des zusammengesetzten Strings
      * @return zusammengesetzter String
      */
-    public static String listing(Iterable<String> stringList, String delimiter, String pre, String post) {
+    public static String listing(Iterable<?> objects, String delimiter, String pre, String post) {
 
-        AssertMethodPrecondition.parameterNotNull("stringList", stringList);
+        AssertMethodPrecondition.parameterNotNull("objects", objects);
         AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
         AssertMethodPrecondition.parameterNotNull("pre", pre);
         AssertMethodPrecondition.parameterNotNull("post", post);
 
-        return pre + listing(stringList, delimiter) + post;
+        return pre + listing(objects, delimiter) + post;
     }
 
     /**
-     * Erzeugt aus einem Iterable von Strings einen zusammengesetzten String. Jedes Element wird von den spezifizierten Strings
-     * preElement und postElement eingerahmt. Zur Trennung der Elemente in der Liste kommt der spez. Delimiter zur Anwendung.
-     * Der Gesamtstring wird eingerahmt von den spez. pre und post String.
+     * Erzeugt aus einem Iterable von Objekten einen zusammengesetzten String. Jede Stringrepresentation des jeweiligen
+     * Elements wird von den spezifizierten Strings preElement und postElement eingerahmt. Zur Trennung der Elemente in
+     * der Liste kommt der spez. Delimiter zur Anwendung. Der Gesamtstring wird eingerahmt von den spez. pre und post
+     * String. Nullelemente werden als 'null' repräsentiert.
      *
-     * @param stringList
+     * @param objects
      * @param delimiter
      * @param pre
      * @param post
@@ -257,9 +260,9 @@ public class Strings {
      * @param postElement
      * @return
      */
-    public static String listing(Iterable<String> stringList, String delimiter, String pre, String post, String preElement, String postElement) {
+    public static String listing(Iterable<?> objects, String delimiter, String pre, String post, String preElement, String postElement) {
 
-        AssertMethodPrecondition.parameterNotNull("stringList", stringList);
+        AssertMethodPrecondition.parameterNotNull("objects", objects);
         AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
         AssertMethodPrecondition.parameterNotNull("pre", pre);
         AssertMethodPrecondition.parameterNotNull("post", post);
@@ -267,7 +270,8 @@ public class Strings {
         AssertMethodPrecondition.parameterNotNull("postElement", postElement);
 
         StringBuilder stringBuilder = new StringBuilder();
-        for (String string : stringList) {
+        for (Object object : objects) {
+            String string = object != null ? object.toString() : "null";
             if (stringBuilder.length() > 0) stringBuilder.append(delimiter);
             stringBuilder.append(preElement).append(string).append(postElement);
         }

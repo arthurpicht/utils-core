@@ -42,16 +42,17 @@ public class Sets {
      * @return set containing intersection elements
      */
     public static <E> Set<E> intersection(final Set<? extends E> a, final Set<? extends E> b) {
-
         final Set<E> intersection = new HashSet<>();
-
         for (E e : a) {
             if (b.contains(e)) intersection.add(e);
         }
-
         return intersection;
     }
 
-
+    public static <E> Set<E> subtract(Set<? extends E> minuend, Set<? extends E> subtrahend) {
+        final Set<E> difference = new HashSet<>(minuend);
+        difference.removeIf(subtrahend::contains);
+        return difference;
+    }
 
 }

@@ -66,6 +66,13 @@ class StringsListingTest {
     }
 
     @Test
+    void listingPrePostMultipleWithNullElement() {
+        List<String> stringList = Lists.newArrayList("string1", "string2", null, "string3");
+        String listing = Strings.listing(stringList, ", ", "{", "}");
+        assertEquals("{string1, string2, null, string3}", listing);
+    }
+
+    @Test
     void listingPrePostNullList() {
         try {
             Strings.listing(null, ", ", "{", "}");
