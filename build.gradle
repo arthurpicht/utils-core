@@ -1,21 +1,15 @@
 plugins {
     id 'java'
-//    id 'maven'
 }
 
 group 'com.github.arthurpicht'
-version '1.2.1'
+version '1.3.0'
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
     }
 }
-
-
-//archivesBaseName = "ap-utils-core"
-
-//sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -24,23 +18,8 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
-//     testCompile group: 'junit', name: 'junit', version: '5.4.2'
 }
 
 test {
     useJUnitPlatform()
 }
-
-//install {
-//    repositories.mavenInstaller {
-//        pom.project {
-//            licenses {
-//                license {
-//                    name 'The Apache Software License, Version 2.0'
-//                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//                    distribution 'repo'
-//                }
-//            }
-//        }
-//    }
-//}
