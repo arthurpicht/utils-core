@@ -6,9 +6,16 @@ plugins {
 group 'com.github.arthurpicht'
 version '1.2.1'
 
-archivesBaseName = "ap-utils-core"
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
 
-sourceCompatibility = 1.8
+
+//archivesBaseName = "ap-utils-core"
+
+//sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
