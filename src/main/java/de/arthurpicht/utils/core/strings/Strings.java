@@ -57,6 +57,13 @@ public class Strings {
         return isNotNullAndNotEmpty(string);
     }
 
+    public static boolean containsControlCharacter(String string) {
+        for (int i = 0; i < string.length(); i++) {
+            if (Character.getType(string.charAt(i)) == Character.CONTROL) return true;
+        }
+        return false;
+    }
+
     /**
      * Prüft, ob der spezifizierte *indexString* mit mindestens einem der übergebenen *strings* übereinstimmt.
      *
