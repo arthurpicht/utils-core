@@ -57,6 +57,13 @@ public class Strings {
         return isNotNullAndNotEmpty(string);
     }
 
+    /**
+     * Checks if specified string contains at least one control character. Control characters are specified in
+     * category cC of unicode.
+     *
+     * @param string
+     * @return
+     */
     public static boolean containsControlCharacter(String string) {
         for (int i = 0; i < string.length(); i++) {
             if (Character.getType(string.charAt(i)) == Character.CONTROL) return true;
@@ -189,6 +196,20 @@ public class Strings {
         }
 
         return tokens;
+    }
+
+    /**
+     * Returns the first line of specified string. Those are the characters before the first occurrence of the newline
+     * control character. If specified string does not contain any newline control character, then the specified string
+     * is returned.
+     *
+     * @param string
+     * @return
+     */
+    public static String getFirstLine(String string) {
+        AssertMethodPrecondition.parameterNotNull("string", string);
+        if (!string.contains("\n")) return string;
+        return splitAtDelimiter(string, "\n")[0];
     }
 
     /**
