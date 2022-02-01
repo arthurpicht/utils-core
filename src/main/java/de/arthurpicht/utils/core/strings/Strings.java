@@ -351,5 +351,11 @@ public class Strings {
         return stringBuilder.toString();
     }
 
+    public static String removeSpace(String str2) {
+
+        String str3 = str2.trim();
+        return str3.replaceAll("\\s+", " ");
+    }
+
 
 }
