@@ -351,11 +351,20 @@ public class Strings {
         return stringBuilder.toString();
     }
 
-    public static String removeSpace(String str2) {
+    /**
+     * Reduziert white space zu maximal einem Leerzeichen zwischen Wörtern.
+     * Aus einem String mit mehreren Zeilen wird so ein einzeiliger String,
+     * bei dem maximal ein Leerzeichen zwischen zwei Wörtern oder Zeichen
+     * zu finden ist.
+     *
+     * @param string
+     * @return
+     */
+    public static String linearize(String string) {
+        AssertMethodPrecondition.parameterNotNull("string", string);
 
-        String str3 = str2.trim();
-        return str3.replaceAll("\\s+", " ");
+        string = string.trim();
+        return string.replaceAll("\\s+", " ");
     }
-
 
 }
