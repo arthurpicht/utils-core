@@ -1,17 +1,15 @@
 package de.arthurpicht.utils.core.strings;
 
-import de.arthurpicht.utils.core.assertion.AssertMethodPrecondition;
-
 import java.util.List;
+
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentIsEqualToOrGreaterThanZero;
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;
 
 @SuppressWarnings("WeakerAccess")
 public class Strings {
 
     /**
      * Checks if specified string is null.
-     *
-     * @param string
-     * @return
      */
     public static boolean isNull(String string) {
         return (string == null);
@@ -19,9 +17,6 @@ public class Strings {
 
     /**
      * Checks if specified string is null or empty.
-     *
-     * @param string
-     * @return
      */
     public static boolean isNullOrEmpty(String string) {
         return (string == null || string.equals(""));
@@ -29,9 +24,6 @@ public class Strings {
 
     /**
      * Checks if specified string is unspecified. Alias for {@link #isNullOrEmpty}
-     *
-     * @param string
-     * @return
      */
     public static boolean isUnspecified(String string) {
         return isNullOrEmpty(string);
@@ -39,9 +31,6 @@ public class Strings {
 
     /**
      * Checks if specified string is not null and not empty.
-     *
-     * @param string
-     * @return
      */
     public static boolean isNotNullAndNotEmpty(String string) {
         return (string != null && !string.equals(""));
@@ -49,9 +38,6 @@ public class Strings {
 
     /**
      * Checks if specified string is specified. Alias for {@link #isNotNullAndNotEmpty(String)}
-     *
-     * @param string
-     * @return
      */
     public static boolean isSpecified(String string) {
         return isNotNullAndNotEmpty(string);
@@ -60,9 +46,6 @@ public class Strings {
     /**
      * Checks if specified string contains at least one control character. Control characters are specified in
      * category cC of unicode.
-     *
-     * @param string
-     * @return
      */
     public static boolean containsControlCharacter(String string) {
         for (int i = 0; i < string.length(); i++) {
@@ -79,14 +62,11 @@ public class Strings {
      * - alle Elemente von *strings* sind nicht null.
      *
      * @throws IllegalArgumentException bei Verletzung der Voraussetzungen.
-     *
-     * @param indexString
-     * @param strings
-     * @return
      */
     public static boolean isOneOf(String indexString, String... strings) {
 
-        if (Strings.isNull(indexString)) throw new IllegalArgumentException("Parameter 'indexString' is null.");
+        assertArgumentNotNull("indexString", indexString);
+        assertArgumentNotNull("strings", strings);
 
         for (String string : strings) {
             if (Strings.isNull(string)) throw new IllegalArgumentException("Element of parameter 'strings' is null.");
@@ -106,14 +86,12 @@ public class Strings {
      *
      * @throws IllegalArgumentException bei Verletzung der Voraussetzungen.
      *
-     * @param indexString
-     * @param strings
-     * @return
      */
     public static boolean isOneOf(String indexString, List<String> strings) {
 
-        AssertMethodPrecondition.parameterNotNull("indexString", indexString);
-        AssertMethodPrecondition.parameterNotNull("strings", strings);
+        assertArgumentNotNull("indexString", indexString);
+        assertArgumentNotNull("indexString", indexString);
+        assertArgumentNotNull("strings", strings);
 
         return Strings.isOneOf(indexString, strings.toArray(new String[]{}));
     }
@@ -124,12 +102,11 @@ public class Strings {
      * delimiter. If starter string contains delimiter more then once, then the
      * first occurrence is recognized only.
      *
-     * @param starter
-     * @param delimiter
-     * @return
      * @throws IllegalArgumentException If the specified string does not contain delimiter
      */
     public static String[] splitAtDelimiter(String starter, String delimiter) {
+        assertArgumentNotNull("starter", starter);
+        assertArgumentNotNull("delimiter", delimiter);
 
         if (!starter.contains(delimiter)) {
             throw new IllegalArgumentException("Delimiter not contained in specified string.");
@@ -154,17 +131,12 @@ public class Strings {
      * Wenn der delimiter einzig aus einem leeren Element besteht, wird der starter als Ergebnis
      * zurück gegeben.
      *
-     *
-     * @param starter
-     * @param delimiter
-     * @return
      * @throws IllegalArgumentException Wenn die Delimiter nicht bzw. nicht in der gegebenen Reihenfolge
      * im Starter enthalten sind.
      */
     public static String[] multiSplit(String starter, String... delimiter) {
-
-        AssertMethodPrecondition.parameterNotNull("starter", starter);
-        AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
+        assertArgumentNotNull("starter", starter);
+        assertArgumentNotNull("delimiter", delimiter);
 
         if (delimiter.length == 0) return new String[] {starter};
 
@@ -202,12 +174,10 @@ public class Strings {
      * Returns the first line of specified string. Those are the characters before the first occurrence of the newline
      * control character. If specified string does not contain any newline control character, then the specified string
      * is returned.
-     *
-     * @param string
-     * @return
      */
     public static String getFirstLine(String string) {
-        AssertMethodPrecondition.parameterNotNull("string", string);
+        assertArgumentNotNull("string", string);
+
         if (!string.contains("\n")) return string;
         return splitAtDelimiter(string, "\n")[0];
     }
@@ -216,14 +186,9 @@ public class Strings {
      * Schneidet am Ende des spezifizierten Strings n Zeichen ab. Wenn n der Länge
      * des Strings entspricht, wird ein leerer String zurück gegeben. Wenn n größer
      * als die Länge des Strings ist, wird eine IllegalArgumentException geworfen.
-     *
-     * @param string
-     * @param n
-     * @return
      */
     public static String cutEnd(String string, int n) {
-
-        AssertMethodPrecondition.parameterNotNull("string", string);
+        assertArgumentNotNull("string", string);
 
         if (n < 0) throw new IllegalArgumentException("Parameter n ist negativ.");
         if (string.length() < n) throw new IllegalArgumentException("Überschreitung der Länge des Strings.");
@@ -241,9 +206,8 @@ public class Strings {
      * @return zusammengesetzter String
      */
     public static String listing(Iterable<?> objects, String delimiter) {
-
-        AssertMethodPrecondition.parameterNotNull("objects", objects);
-        AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
+        assertArgumentNotNull("objects", objects);
+        assertArgumentNotNull("delimiter", delimiter);
 
         StringBuilder stringBuilder = new StringBuilder();
         for (Object object : objects) {
@@ -265,11 +229,10 @@ public class Strings {
      * @return zusammengesetzter String
      */
     public static String listing(Iterable<?> objects, String delimiter, String pre, String post) {
-
-        AssertMethodPrecondition.parameterNotNull("objects", objects);
-        AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
-        AssertMethodPrecondition.parameterNotNull("pre", pre);
-        AssertMethodPrecondition.parameterNotNull("post", post);
+        assertArgumentNotNull("objects", objects);
+        assertArgumentNotNull("delimiter", delimiter);
+        assertArgumentNotNull("pre", pre);
+        assertArgumentNotNull("post", post);
 
         return pre + listing(objects, delimiter) + post;
     }
@@ -289,13 +252,12 @@ public class Strings {
      * @return
      */
     public static String listing(Iterable<?> objects, String delimiter, String pre, String post, String preElement, String postElement) {
-
-        AssertMethodPrecondition.parameterNotNull("objects", objects);
-        AssertMethodPrecondition.parameterNotNull("delimiter", delimiter);
-        AssertMethodPrecondition.parameterNotNull("pre", pre);
-        AssertMethodPrecondition.parameterNotNull("post", post);
-        AssertMethodPrecondition.parameterNotNull("preElement", preElement);
-        AssertMethodPrecondition.parameterNotNull("postElement", postElement);
+        assertArgumentNotNull("objects", objects);
+        assertArgumentNotNull("delimiter", delimiter);
+        assertArgumentNotNull("pre", pre);
+        assertArgumentNotNull("post", post);
+        assertArgumentNotNull("preElement", preElement);
+        assertArgumentNotNull("postElement", postElement);
 
         StringBuilder stringBuilder = new StringBuilder();
         for (Object object : objects) {
@@ -319,17 +281,11 @@ public class Strings {
      * @param minLength
      */
     public static void fillUpAfter(StringBuilder stringBuilder, char fillChar, int minLength) {
-
-        AssertMethodPrecondition.parameterNotNull("stringBuilder", stringBuilder);
+        assertArgumentNotNull("stringBuilder", stringBuilder);
 
         if (stringBuilder.length() >= minLength) return;
-
         int nrOfCharsToFill = minLength - stringBuilder.length();
-
-        for (int i = 0; i < nrOfCharsToFill; i++) {
-            stringBuilder.append(fillChar);
-        }
-
+        stringBuilder.append(String.valueOf(fillChar).repeat(Math.max(0, nrOfCharsToFill)));
     }
 
     /**
@@ -343,8 +299,8 @@ public class Strings {
      * @return@NotNull
      */
     public static String fillUpAfter(String string, char fillChar, int minLength) {
-
-        AssertMethodPrecondition.parameterNotNull("string", string);
+        assertArgumentNotNull("string", string);
+        assertArgumentIsEqualToOrGreaterThanZero("minLength", minLength);
 
         StringBuilder stringBuilder = new StringBuilder(string);
         fillUpAfter(stringBuilder, fillChar, minLength);
@@ -357,11 +313,9 @@ public class Strings {
      * bei dem maximal ein Leerzeichen zwischen zwei Wörtern oder Zeichen
      * zu finden ist.
      *
-     * @param string
-     * @return
      */
     public static String linearize(String string) {
-        AssertMethodPrecondition.parameterNotNull("string", string);
+        assertArgumentNotNull("string", string);
 
         string = string.trim();
         return string.replaceAll("\\s+", " ");

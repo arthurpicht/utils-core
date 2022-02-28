@@ -1,5 +1,6 @@
 package de.arthurpicht.utils.core.assertion;
 
+@Deprecated
 public class AssertMethodPrecondition {
 
     public static void parameterNotNull(String name, String value) {
