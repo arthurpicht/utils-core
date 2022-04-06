@@ -1,9 +1,10 @@
 package de.arthurpicht.utils.core.strings;
 
+import de.arthurpicht.utils.core.assertion.MethodPreconditions;
+
 import java.util.List;
 
-import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentIsEqualToOrGreaterThanZero;
-import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.*;
 
 @SuppressWarnings("WeakerAccess")
 public class Strings {
@@ -319,6 +320,79 @@ public class Strings {
 
         string = string.trim();
         return string.replaceAll("\\s+", " ");
+    }
+
+    /**
+     * Makes sure that specified string ends with specified ending.
+     *
+     * @param string
+     * @param ending
+     * @return specified string or specified string with added specified ending if specified string does not end
+     * with specified ending.
+     */
+    public static String assureEndsWith(String string, String ending) {
+        assertArgumentNotNull("string", string);
+        assertArgumentNotNull("ending", ending);
+        if (string.endsWith(ending)) return string;
+        return string + ending;
+    }
+
+    /**
+     * Concatenates specified objects to one string by using each toString
+     * method.
+     *
+     * @param objects
+     * @return
+     */
+    public static String concat(Iterable<?> objects) {
+        assertArgumentNotNull("objects", objects);
+        StringBuilder stringBuilder = new StringBuilder();
+        objects.forEach(stringBuilder::append);
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Returns array of string for specified list of strings.
+     *
+     * @param list list of strings
+     * @return
+     */
+    public static String[] toArray(List<String> list) {
+        assertArgumentNotNull("list", list);
+        return list.toArray(new String[0]);
+    }
+
+    /**
+     * Fills up specified string with spaces until specified minLength is reached.
+     * If length of specified string is equal or greater than specified length, then specified string
+     * is returned unmodified.
+     *
+     * @param string
+     * @param minLength
+     * @return
+     */
+    public static String rightPad(String string, int minLength) {
+        assertArgumentNotNull("string", string);
+        assertArgumentIsGreaterThanZero("minLength", minLength);
+        return Strings.fillUpAfter(string, ' ', minLength);
+    }
+
+    /**
+     * Limits specified string to maximum length as specified limit.
+     *
+     * @param string string to be limited in length
+     * @param limit maximum length of string
+     * @return specified string or first part of string with length equals limit if specified string exceeds length
+     * limit.
+     */
+    public static String limit(String string, int limit) {
+        assertArgumentNotNull("string", string);
+        if (limit < 0) throw new IllegalArgumentException("Specified limit less than 0.");
+        if (string.length() <= limit) {
+            return string;
+        } else {
+            return string.substring(0, limit);
+        }
     }
 
 }

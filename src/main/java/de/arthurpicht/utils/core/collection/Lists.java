@@ -1,5 +1,7 @@
 package de.arthurpicht.utils.core.collection;
 
+import de.arthurpicht.utils.core.assertion.MethodPreconditions;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -85,5 +87,34 @@ public class Lists {
 
         return sublist(list, 0, endIndex);
     }
+
+    /**
+     * Returns the first element of specified non-empty list.
+     *
+     * @param list list to obtain first element from
+     * @param <E> type of list elements
+     * @return the first element
+     * @throws IllegalArgumentException if list is empty
+     */
+    public static <E> E getFirstElement(List<E> list) {
+        MethodPreconditions.assertArgumentNotNull("list", list);
+        if (list.size() == 0) throw new IllegalArgumentException("Specified list is empty.");
+        return list.get(0);
+    }
+
+    /**
+     * Returns the last element of specified non-empty list.
+     *
+     * @param list list to obtain last element from
+     * @param <E> type of list elements
+     * @return the last element
+     * @throws IllegalArgumentException if list is empty
+     */
+    public static <E> E getLastElement(List<E> list) {
+        MethodPreconditions.assertArgumentNotNull("list", list);
+        if (list.size() == 0) throw new IllegalArgumentException("Specified list is empty.");
+        return list.get(list.size() - 1);
+    }
+
 
 }
