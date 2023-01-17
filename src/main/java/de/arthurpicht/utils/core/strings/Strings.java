@@ -56,6 +56,14 @@ public class Strings {
     }
 
     /**
+     * Checks if specified strings contains at least one whitespace character. Whitespace charaters
+     * are: \t\n\x0B\f\r. See <a href="https://docs.oracle.com/javase/tutorial/essential/regex/pre_char_classes.html">Oracle Java Tutorial</a>
+     */
+    public static boolean containsWhitespace(String string) {
+        return !string.isEmpty() && !string.matches("\\S+");
+    }
+
+    /**
      * Prüft, ob der spezifizierte *indexString* mit mindestens einem der übergebenen *strings* übereinstimmt.
      *
      * Voraussetzungen:
