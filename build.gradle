@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.github.arthurpicht'
-version '1.11.0'
+version '1.12.0'
 
 java {
     toolchain {
@@ -16,8 +16,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
 }
 
 test {

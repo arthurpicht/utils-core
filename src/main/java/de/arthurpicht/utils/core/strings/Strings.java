@@ -1,12 +1,12 @@
 package de.arthurpicht.utils.core.strings;
 
-import de.arthurpicht.utils.core.assertion.MethodPreconditions;
+import de.arthurpicht.utils.core.math.Numbers;
 
 import java.util.List;
 
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.*;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class Strings {
 
     /**
@@ -65,7 +65,6 @@ public class Strings {
 
     /**
      * Prüft, ob der spezifizierte *indexString* mit mindestens einem der übergebenen *strings* übereinstimmt.
-     *
      * Voraussetzungen:
      * - der *indexString* ist nicht null.
      * - alle Elemente von *strings* sind nicht null.
@@ -88,7 +87,6 @@ public class Strings {
     /**
      * Prüft, ob der spezifizierte *indexString* mit mindestens einem Element der übergebenen Liste von *strings*
      * übereinstimmt.
-     *
      * Voraussetzungen:
      * - der *indexString* ist nicht null.
      * - *strings* ist nicht null.
@@ -108,7 +106,7 @@ public class Strings {
 
     /**
      * Splits specified string in two substrings: one before and one after the specified
-     * delimiter. If starter string contains delimiter more then once, then the
+     * delimiter. If starter string contains delimiter more than once, then the
      * first occurrence is recognized only.
      *
      * @throws IllegalArgumentException If the specified string does not contain delimiter
@@ -132,13 +130,13 @@ public class Strings {
     /**
      * Teilt den spezifizierten String Starter in Teilstrings unter Anwendung der spezifizierten Delimiter.
      * Die Delimiter sind nicht Teil der resultierenden Teilstrings.
-     *
+     * <p>
      * Voraussetzungen: starter und delimiter sind nicht null, delimiter enthält keine null-Elemente,
      * delimiter-Elemente sind im starter enthalten, delimiter-Elemente sind im Starter in genau der
      * Reihenfolge enthalten, in der sie definiert sind.
-     *
+     * <p>
      * Wenn der delimiter einzig aus einem leeren Element besteht, wird der starter als Ergebnis
-     * zurück gegeben.
+     * zurückgegeben.
      *
      * @throws IllegalArgumentException Wenn die Delimiter nicht bzw. nicht in der gegebenen Reihenfolge
      * im Starter enthalten sind.
@@ -193,7 +191,7 @@ public class Strings {
 
     /**
      * Schneidet am Ende des spezifizierten Strings n Zeichen ab. Wenn n der Länge
-     * des Strings entspricht, wird ein leerer String zurück gegeben. Wenn n größer
+     * des Strings entspricht, wird ein leerer String zurückgegeben. Wenn n größer
      * als die Länge des Strings ist, wird eine IllegalArgumentException geworfen.
      */
     public static String cutEnd(String string, int n) {
@@ -247,18 +245,18 @@ public class Strings {
     }
 
     /**
-     * Erzeugt aus einem Iterable von Objekten einen zusammengesetzten String. Jede Stringrepresentation des jeweiligen
+     * Erzeugt aus einem Iterable von Objekten einen zusammengesetzten String. Jede Stringrepräsentation des jeweiligen
      * Elements wird von den spezifizierten Strings preElement und postElement eingerahmt. Zur Trennung der Elemente in
      * der Liste kommt der spez. Delimiter zur Anwendung. Der Gesamtstring wird eingerahmt von den spez. pre und post
      * String. Nullelemente werden als 'null' repräsentiert.
      *
-     * @param objects
-     * @param delimiter
-     * @param pre
-     * @param post
-     * @param preElement
-     * @param postElement
-     * @return
+     * @param objects Iterable dessen beinhaltete Objekte Elemente der Liste werden
+     * @param delimiter Trennzeichen
+     * @param pre einzufügender String vor der Liste
+     * @param post einzufügender String nach der Liste
+     * @param preElement einzufügender String vor jedem Element
+     * @param postElement einzufügender String nach jedem Element
+     * @return Liste
      */
     public static String listing(Iterable<?> objects, String delimiter, String pre, String post, String preElement, String postElement) {
         assertArgumentNotNull("objects", objects);
@@ -281,16 +279,21 @@ public class Strings {
     }
 
     /**
-     * Füllt den spez. und initialisierten StringBuilder bis zur spez. Länge auf.
-     * Wenn die spez. Länge bereits initial gegeben oder überschritten ist, bleibt
-     * der spez. StringBuilder unverändert.
-     *
-     * @param stringBuilder
-     * @param fillChar
-     * @param minLength
+     * Renamed. Use fillUpRight instead.
      */
+    @Deprecated
     public static void fillUpAfter(StringBuilder stringBuilder, char fillChar, int minLength) {
+        fillUpRight(stringBuilder, fillChar, minLength);
+    }
+
+    /**
+     * Füllt den spezifizierten und initialisierten StringBuilder bis zur spezifizierten Länge auf.
+     * Wenn die spezifizierte Länge bereits initial gegeben oder überschritten ist, bleibt
+     * der spezifizierten StringBuilder unverändert.
+     */
+    public static void fillUpRight(StringBuilder stringBuilder, char fillChar, int minLength) {
         assertArgumentNotNull("stringBuilder", stringBuilder);
+        assertArgumentIsEqualToOrGreaterThanZero("minLength", minLength);
 
         if (stringBuilder.length() >= minLength) return;
         int nrOfCharsToFill = minLength - stringBuilder.length();
@@ -298,21 +301,89 @@ public class Strings {
     }
 
     /**
-     * Füllt den spez. String durch wiederholte Hinzufügung bis zur spez. Länge auf.
-     * Wenn die spez. Länge bereits initial gegeben oder überschritten ist, wird der spez. String
-     * unverändert zurück gegeben.
-     *
-     * @param string
-     * @param fillChar
-     * @param minLength
-     * @return@NotNull
+     * Renamed. User fillUpRight instead.
      */
+    @Deprecated
     public static String fillUpAfter(String string, char fillChar, int minLength) {
+        return fillUpRight(string, fillChar, minLength);
+    }
+
+    /**
+     * Füllt den spezifizierten String durch wiederholte Hinzufügung bis zur spez. Länge auf.
+     * Wenn die spezifizierte Länge bereits initial gegeben oder überschritten ist, wird der spezifizierte String
+     * unverändert zurückgegeben.
+     */
+    public static String fillUpRight(String string, char fillChar, int minLength) {
         assertArgumentNotNull("string", string);
         assertArgumentIsEqualToOrGreaterThanZero("minLength", minLength);
 
         StringBuilder stringBuilder = new StringBuilder(string);
-        fillUpAfter(stringBuilder, fillChar, minLength);
+        fillUpRight(stringBuilder, fillChar, minLength);
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Füllt den spezifizierten und initialisierten StringBuilder durch wiederholte Hinzufügung bis zur spezifizierten
+     * Länge auf.
+     * Wenn die spezifizierte Länge bereits initial gegeben oder überschritten ist, wird der spezifizierten String
+     * unverändert zurückgegeben.
+     */
+    public static void fillUpLeft(StringBuilder stringBuilder, char fillChar, int minLength) {
+        assertArgumentNotNull("stringBuilder", stringBuilder);
+        assertArgumentIsEqualToOrGreaterThanZero("minLength", minLength);
+
+        if (stringBuilder.length() >= minLength) return;
+        int nrOfCharsToFill = minLength - stringBuilder.length();
+        stringBuilder.insert(0, String.valueOf(fillChar).repeat(Math.max(0, nrOfCharsToFill)));
+    }
+
+    /**
+     * Füllt den spezifizierten String durch wiederholte Hinzufügung bis zur spezifizierten Länge auf.
+     * Wenn die spezifizierte Länge bereits initial gegeben oder überschritten ist, wird der spezifizierten String
+     * unverändert zurückgegeben.
+     */
+    public static String fillUpLeft(String string, char fillChar, int minLength) {
+        assertArgumentNotNull("string", string);
+        assertArgumentIsEqualToOrGreaterThanZero("minLength", minLength);
+
+        StringBuilder stringBuilder = new StringBuilder(string);
+        fillUpLeft(stringBuilder, fillChar, minLength);
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Füllt den spezifizierten String durch wiederholte Hinzufügung des Füllzeichens bis zur spezifizierten Länge
+     * auf. Dabei werden die Füllzeichen gleichgewichtig vor und nach dem spezifizierten String hinzugefügt. Der dabei
+     * entstehende Füllstring auf der linken Seite ist maximal ein Füllzeichen länger als derjenige auf der
+     * rechten Seite. Falls der spezifizierte String bereits zum Aufrufzeitpunkt mindestens so lang ist wie die
+     * spezifizierte Mindestlänge, dann wird dieser String unverändert zurückgegeben.
+     *
+     * @param string aufzufüllender String
+     * @param fillChar Füllzeichen
+     * @param minLength Mindestlänge
+     * @return aufgefüllter String
+     */
+    public static String fillUpLeftAndRight(String string, char fillChar, int minLength) {
+        assertArgumentNotNull("string", string);
+        assertArgumentIsEqualToOrGreaterThanZero("minLength", minLength);
+
+        if (string.length() >= minLength) return string;
+        int nrOfCharsToFill = minLength - string.length();
+
+        if (!Numbers.isEven(nrOfCharsToFill)) {
+            nrOfCharsToFill = nrOfCharsToFill - 1;
+            string = string + fillChar;
+            if (string.length() == minLength) return string;
+        }
+        return fillUpRightAndLeftEqually(string, fillChar, nrOfCharsToFill);
+    }
+
+    private static String fillUpRightAndLeftEqually(String string, char fillChar, int nrOfCharsToFill) {
+        int nrOfCharsToFillHalf = nrOfCharsToFill / 2;
+        StringBuilder stringBuilder = new StringBuilder(string);
+        String paddingString = String.valueOf(fillChar).repeat(Math.max(0, nrOfCharsToFillHalf));
+        stringBuilder.insert(0, paddingString);
+        stringBuilder.append(paddingString);
         return stringBuilder.toString();
     }
 
@@ -333,8 +404,8 @@ public class Strings {
     /**
      * Makes sure that specified string ends with specified ending.
      *
-     * @param string
-     * @param ending
+     * @param string string to be checked
+     * @param ending ending string to be subject of check
      * @return specified string or specified string with added specified ending if specified string does not end
      * with specified ending.
      */
@@ -349,8 +420,8 @@ public class Strings {
      * Concatenates specified objects to one string by using each toString
      * method.
      *
-     * @param objects
-     * @return
+     * @param objects Iterable whose elements will be concatenated.
+     * @return concatenated string
      */
     public static String concat(Iterable<?> objects) {
         assertArgumentNotNull("objects", objects);
@@ -363,7 +434,7 @@ public class Strings {
      * Returns array of string for specified list of strings.
      *
      * @param list list of strings
-     * @return
+     * @return array of string
      */
     public static String[] toArray(List<String> list) {
         assertArgumentNotNull("list", list);
@@ -375,14 +446,29 @@ public class Strings {
      * If length of specified string is equal or greater than specified length, then specified string
      * is returned unmodified.
      *
-     * @param string
-     * @param minLength
-     * @return
+     * @param string string to be padded
+     * @param minLength minimum length of resulting string
+     * @return padded string
      */
     public static String rightPad(String string, int minLength) {
         assertArgumentNotNull("string", string);
         assertArgumentIsGreaterThanZero("minLength", minLength);
-        return Strings.fillUpAfter(string, ' ', minLength);
+        return Strings.fillUpRight(string, ' ', minLength);
+    }
+
+    /**
+     * Fills up specified string with spaces to the left until specified minLength is reached.
+     * If length of specified string is equal or greater than specified length, then specified string
+     * is returned unmodified.
+     *
+     * @param string string to be padded
+     * @param minLength minimum length of resulting string
+     * @return padded string
+     */
+    public static String leftPad(String string, int minLength) {
+        assertArgumentNotNull("string", string);
+        assertArgumentIsGreaterThanZero("minLength", minLength);
+        return Strings.fillUpLeft(string, ' ', minLength);
     }
 
     /**
@@ -401,6 +487,27 @@ public class Strings {
         } else {
             return string.substring(0, limit);
         }
+    }
+
+    /**
+     * Überschreibt die letzten Zeichen des spezifizierten Strings mit dem spezifizierten overlay string.
+     * Wenn der overlay string länger ist als der spezifizierte Indexstring, dann wird als Ergebnis ersterer
+     * in entsprechend vom Ende her gekürzter Form zurückgegeben.
+     *
+     * @param string zu überschreibender String
+     * @param overlay String mit dem überschrieben wird
+     * @return überschriebener String
+     */
+    public static String overwriteRight(String string, String overlay) {
+        assertArgumentNotNull("string", string);
+        assertArgumentNotNull("overlay", overlay);
+        if (string.isEmpty() || overlay.isEmpty()) return string;
+        if (overlay.length() > string.length())
+            return overlay.substring(0, string.length());
+
+        int index = string.length() - overlay.length();
+        String firstChunk = string.substring(0, index);
+        return firstChunk + overlay;
     }
 
 }
