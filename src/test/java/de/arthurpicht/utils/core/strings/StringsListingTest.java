@@ -32,6 +32,20 @@ class StringsListingTest {
     }
 
     @Test
+    void listingMultipleWithLateEmptyElement() {
+        List<String> stringList = Lists.newArrayList("string1", "", "string2");
+        String listing = Strings.listing(stringList, ", ");
+        assertEquals("string1, , string2", listing);
+    }
+
+    @Test
+    void listingMultipleWithFirstEmptyElement() {
+        List<String> stringList = Lists.newArrayList("", "string1", "string2");
+        String listing = Strings.listing(stringList, ", ");
+        assertEquals(", string1, string2", listing);
+    }
+
+    @Test
     void listingNullList() {
         try {
             Strings.listing(null, ", ");
@@ -152,6 +166,5 @@ class StringsListingTest {
         String listing = Strings.listing(stringList, ", ", "{", "}", "A", "E");
         assertEquals("{Astring1E}", listing);
     }
-
 
 }

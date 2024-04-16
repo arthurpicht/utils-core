@@ -217,10 +217,12 @@ public class Strings {
         assertArgumentNotNull("delimiter", delimiter);
 
         StringBuilder stringBuilder = new StringBuilder();
+        boolean addedYet = false;
         for (Object object : objects) {
             String string = object != null ? object.toString() : "null";
-            if (stringBuilder.length() > 0) stringBuilder.append(delimiter);
+            if (addedYet) stringBuilder.append(delimiter);
             stringBuilder.append(string);
+            addedYet = true;
         }
         return stringBuilder.toString();
     }
