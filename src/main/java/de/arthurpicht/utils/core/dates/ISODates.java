@@ -21,6 +21,24 @@ public class ISODates {
     }
 
     /**
+     * Returns ISO string with UTC time zone for specified epoch millis.
+     */
+    public static String toISO(long epochMillis) {
+        Instant instant = Instant.ofEpochMilli(epochMillis);
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(instant, ZoneId.of("UTC"));
+        return zonedDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
+    }
+
+    /**
+     * Returns ISO string with local/system time zone for specified epoch millis.
+     */
+    public static String toLocalISO(long epochMillis) {
+        Instant instant = Instant.ofEpochMilli(epochMillis);
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());
+        return zonedDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
+    }
+
+    /**
      * Moved to {@link ISODates#toEpochMillis(String)}
      */
     @Deprecated
