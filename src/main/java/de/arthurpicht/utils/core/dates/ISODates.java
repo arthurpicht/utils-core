@@ -20,7 +20,15 @@ public class ISODates {
         return zonedDateTime.format(DateTimeFormatter.ISO_INSTANT);
     }
 
+    /**
+     * Moved to {@link ISODates#toEpochMillis(String)}
+     */
+    @Deprecated
     public static long toEpochMilli(String iso) {
+        return toEpochMillis(iso);
+    }
+
+    public static long toEpochMillis(String iso) {
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(iso);
         Instant instant = zonedDateTime.toInstant();
         return instant.toEpochMilli();
@@ -60,4 +68,13 @@ public class ISODates {
         return zonedDateTimeLocal.format(dateTimeFormatter);
     }
 
+    /**
+     * Returns current timestamp as ISO string.
+     *
+     * @return
+     */
+    public static String current() {
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        return zonedDateTime.format(DateTimeFormatter.ISO_INSTANT);
+    }
 }

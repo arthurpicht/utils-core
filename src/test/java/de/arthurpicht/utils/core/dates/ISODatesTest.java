@@ -1,6 +1,5 @@
 package de.arthurpicht.utils.core.dates;
 
-import de.arthurpicht.utils.core.strings.Timestamps;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -18,7 +17,7 @@ class ISODatesTest {
     void getISOForNow() {
         Instant nowInstantPre = Instant.now();
 
-        String isoNow = Timestamps.currentAsISO();
+        String isoNow = ISODates.current();
         System.out.println(isoNow);
 
         Date now = ISODates.dateForISO(isoNow);
