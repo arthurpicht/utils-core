@@ -3,7 +3,11 @@ plugins {
 }
 
 group 'com.github.arthurpicht'
-version '1.17.0-SNAPSHOT'
+version '1.18.0'
+
+base {
+    archivesName = "ap-utils-core"
+}
 
 repositories {
     mavenCentral()
