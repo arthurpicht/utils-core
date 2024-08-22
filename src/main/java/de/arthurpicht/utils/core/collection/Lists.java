@@ -25,6 +25,33 @@ public class Lists {
     }
 
     /**
+     * Concatenates elements of specified lists to a new list of type ArrayList.
+     *
+     * @param lists lists to be concatenated
+     * @return concatenated list
+     * @param <T> type parameter for lists
+     * @throws IllegalArgumentException if specified parameter is null
+     */
+    @SafeVarargs
+    public static <T> ArrayList<T> concat(List<T>... lists) {
+        MethodPreconditions.assertArgumentNotNull("lists", lists);
+        if (lists.length == 0) return new ArrayList<>();
+
+        int capacity = 0;
+        for (List<T> list : lists) {
+            if (list == null) throw new IllegalArgumentException("null specified as parameter.");
+            capacity += list.size();
+        }
+
+        ArrayList<T> concatList = new ArrayList<>(capacity);
+
+        for (List<T> list : lists) {
+            concatList.addAll(list);
+        }
+        return concatList;
+    }
+
+    /**
      * Returns a newly creates list as a sublist of specified list. The sublist begins at the specified beginIndex
      * and extends to the element at index endIndex - 1. Thus, the length of the substring is endIndex - beginIndex.
      * The mimic of that method is the same as String.substring();
