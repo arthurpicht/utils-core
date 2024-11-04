@@ -5,17 +5,14 @@ import java.util.regex.PatternSyntaxException;
 
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNullAndNotEmpty;
 
-/**
- * A pattern matcher with simplified glob syntax. Meta characters are '*' for 0..n signs and '?' for
- * one sign. Escaping '\*' and '\?' will suppress escape feature of respective character.
- * The specified glob expression is internally translated to a regex expression. Method 'compile'
- * returns a regex Pattern object.
- * <p>
- * For further info see:
- * <li><a href="https://stackoverflow.com/questions/1247772/is-there-an-equivalent-of-java-util-regex-for-glob-type-patterns">SO</a></li>
- * <li><a href="https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_13_01">Full Glob specification</a></li>
- *
- */
+/// A pattern matcher with simplified glob syntax. Meta characters are '*' for 0..n signs and '?' for
+/// one sign. Escaping '\*' and '\?' will suppress escape feature of respective character.
+/// The specified glob expression is internally translated to a regex expression. Method 'compile'
+/// returns a regex Pattern object.
+///
+/// For further info see:
+///   - <a href="https://stackoverflow.com/questions/1247772/is-there-an-equivalent-of-java-util-regex-for-glob-type-patterns">SO</a>
+///   - <a href="https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_13_01">Full Glob specification</a>
 public class SimplifiedGlob {
 
     public static class SimplifiedGlobSyntaxException extends IllegalArgumentException {
