@@ -3,20 +3,17 @@ plugins {
     id 'maven-publish'
 }
 
-group 'com.github.arthurpicht'
-version '1.18.0'
-
-base {
-    archivesName = "ap-utils-core"
-}
+group 'de.arthurpicht'
+version '1.19.0'
+def artifact = 'ap-utils-core'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.3'
 }
 
 java {
@@ -28,15 +25,20 @@ test {
     useJUnitPlatform()
 }
 
+base {
+    archivesName = artifact
+}
+
 publishing {
     publications {
-        myLibrary(MavenPublication) {
+        maven(MavenPublication) {
+            artifactId = artifact
             from components.java
         }
     }
     repositories {
         maven {
-            url = layout.buildDirectory.dir(project.gradle.gradleUserHomeDir.parent + "/work/mvn-repo")
+            url = layout.buildDirectory.dir(project.gradle.gradleUserHomeDir.parent + "/gitrepos/ap/mvn-repo/releases")
         }
     }
 }
