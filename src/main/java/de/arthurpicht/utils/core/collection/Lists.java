@@ -2,13 +2,12 @@ package de.arthurpicht.utils.core.collection;
 
 import de.arthurpicht.utils.core.assertion.MethodPreconditions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentIsEqualToOrGreaterThanZero;
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;
 
+@SuppressWarnings("SequencedCollectionMethodCanBeUsed")
 public class Lists {
 
     /**
@@ -125,7 +124,7 @@ public class Lists {
      */
     public static <E> E getFirstElement(List<E> list) {
         MethodPreconditions.assertArgumentNotNull("list", list);
-        if (list.size() == 0) throw new IllegalArgumentException("Specified list is empty.");
+        if (list.isEmpty()) throw new IllegalArgumentException("Specified list is empty.");
         return list.get(0);
     }
 
@@ -139,9 +138,26 @@ public class Lists {
      */
     public static <E> E getLastElement(List<E> list) {
         MethodPreconditions.assertArgumentNotNull("list", list);
-        if (list.size() == 0) throw new IllegalArgumentException("Specified list is empty.");
+        if (list.isEmpty()) throw new IllegalArgumentException("Specified list is empty.");
         return list.get(list.size() - 1);
     }
 
+    /**
+     * Returns all duplicate elements of specified list or an empty list if no duplicates exist.
+     *
+     * @param list list to check for duplicates
+     * @return list of duplicate elements
+     * @param <T> type of list elements
+     */
+    public static <T> List<T> getDuplicates(List<T> list) {
+        assertArgumentNotNull("list", list);
+
+        Set<T> set = new HashSet<>();
+        List<T> duplicates = new ArrayList<>();
+        for (T element : list) {
+            if (!set.add(element)) duplicates.add(element);
+        }
+        return duplicates;
+    }
 
 }
