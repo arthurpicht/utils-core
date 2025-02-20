@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'de.arthurpicht'
-version '1.21.0'
+version '1.22.0'
 def artifact = 'ap-utils-core'
 
 repositories {
